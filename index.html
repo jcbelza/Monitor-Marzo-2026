@@ -6,7 +6,7 @@
     <title>Monitor Sector Eléctrico - Marzo 2026 | CIER</title>
 
     <meta property="og:title" content="Monitor Sector Eléctrico - Marzo 2026">
-    <meta property="og:description" content="Reporte estratégico basado en noticias analizadas del sector eléctrico latinoamericano.">
+    <meta property="og:description" content="Reporte estratégico basado en 202 noticias de 15 países del sector eléctrico latinoamericano.">
     <meta property="og:image" content="https://raw.githubusercontent.com/jcbelza/Monitor-Marzo-2026/main/miniatura1.png">
     <meta property="og:url" content="https://jcbelza.github.io/Monitor-Marzo-2026/">
     <meta property="og:type" content="website">
@@ -17,213 +17,229 @@
 
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #f1f5f9; color: #1e293b; }
-        .chart-container { position: relative; width: 100%; height: 350px; max-height: 400px; }
-        @media (max-width: 768px) { .chart-container { height: 300px; } }
-        
-        /* Estilos de scrollbar */
-        ::-webkit-scrollbar { width: 8px; height: 4px; }
-        ::-webkit-scrollbar-track { background: #f1f5f9; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-        
-        /* Navegación móvil sin botones ocultos */
+        .chart-container { position: relative; width: 100%; height: 350px; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
-        .card-hover:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
         .active-tab { border-bottom: 3px solid #1d4ed8; color: #1d4ed8; font-weight: 700; }
+        .card-hover:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
         .animate-fade-in { animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
-        .alerta-roja { border-left: 4px solid #dc2626; background: #fef2f2; }
-        .oportunidad-verde { border-left: 4px solid #16a34a; background: #f0fdf4; }
-        .alerta-naranja { border-left: 4px solid #d97706; background: #fffbeb; }
-        .badge-sa { display:inline-block; background:#1d4ed8; color:white; font-size:10px; font-weight:700; padding:1px 7px; border-radius:3px; margin-right:4px; }
-        .badge-cac { display:inline-block; background:#ea580c; color:white; font-size:10px; font-weight:700; padding:1px 7px; border-radius:3px; margin-right:4px; }
+        .badge-sa { background:#1d4ed8; color:white; font-size:10px; font-weight:700; padding:2px 6px; border-radius:3px; }
+        .badge-cac { background:#ea580c; color:white; font-size:10px; font-weight:700; padding:2px 6px; border-radius:3px; }
     </style>
 </head>
-<body class="antialiased selection:bg-blue-100 selection:text-blue-900">
+<body class="antialiased">
 
     <nav class="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm backdrop-blur-md bg-opacity-95">
         <div class="max-w-7xl mx-auto px-4">
             <div class="flex flex-col sm:flex-row items-center justify-between py-2 sm:h-16">
                 <div class="flex items-center gap-3 mb-2 sm:mb-0">
                     <div class="w-8 h-8 bg-blue-700 rounded-lg flex items-center justify-center text-white font-bold text-sm">C</div>
-                    <span class="font-bold text-slate-800 text-base sm:text-lg tracking-tight">CIER <span class="text-slate-500 font-normal">| Monitor Marzo 2026</span></span>
+                    <span class="font-bold text-slate-800 text-base sm:text-lg">CIER <span class="text-slate-500 font-normal">| Monitor Marzo 2026</span></span>
                 </div>
-                
                 <div class="w-full sm:w-auto overflow-x-auto no-scrollbar border-t sm:border-0 pt-2 sm:pt-0">
-                    <div class="flex justify-center sm:justify-end space-x-6 sm:space-x-8 min-w-max mx-auto px-2">
-                        <button onclick="switchTab('dashboard')" id="nav-dashboard" class="active-tab pb-2 sm:pb-0 text-sm font-medium transition-all">Tablero Ejecutivo</button>
-                        <button onclick="switchTab('regional')" id="nav-regional" class="text-gray-500 hover:text-blue-700 pb-2 sm:pb-0 text-sm font-medium transition-all">Pulso Regional</button>
-                        <button onclick="switchTab('strategy')" id="nav-strategy" class="text-gray-500 hover:text-blue-700 pb-2 sm:pb-0 text-sm font-medium transition-all">Estrategia y Riesgos</button>
+                    <div class="flex justify-center sm:justify-end space-x-6 min-w-max px-2">
+                        <button onclick="switchTab('dashboard')" id="nav-dashboard" class="active-tab pb-1 text-sm font-medium transition-all">Tablero Ejecutivo</button>
+                        <button onclick="switchTab('regional')" id="nav-regional" class="text-gray-500 hover:text-blue-700 pb-1 text-sm font-medium transition-all">Pulso Regional</button>
+                        <button onclick="switchTab('strategy')" id="nav-strategy" class="text-gray-500 hover:text-blue-700 pb-1 text-sm font-medium transition-all">Estrategia y Riesgos</button>
                     </div>
                 </div>
             </div>
         </div>
     </nav>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <main class="max-w-7xl mx-auto px-4 py-8">
 
         <div class="mb-8">
-            <p class="text-sm font-semibold text-blue-700 uppercase tracking-wider">Uso Reservado — CIER Internacional</p>
-            <h1 class="text-3xl md:text-4xl font-bold text-slate-900 mt-1">Monitor sobre la Situación Actual del Sector Eléctrico</h1>
-            <p class="mt-2 text-lg text-slate-600 max-w-3xl">
-                Reporte estratégico basado en <strong>202 noticias</strong> de <strong>15 países</strong> analizadas para la coordinación internacional.
-            </p>
-            <div class="mt-3 flex flex-wrap gap-3 text-xs text-slate-500">
-                <span class="bg-slate-100 rounded px-3 py-1">📅 Período: Marzo 2026</span>
-                <span class="bg-slate-100 rounded px-3 py-1">📰 202 noticias analizadas</span>
-                <span class="bg-slate-100 rounded px-3 py-1">🌎 15 países cubiertos</span>
-            </div>
+            <p class="text-xs font-bold text-blue-700 uppercase tracking-widest">Uso Reservado — CIER Internacional</p>
+            <h1 class="text-3xl font-bold text-slate-900 mt-1">Monitor Sector Eléctrico LATAM</h1>
+            <p class="mt-2 text-slate-600 max-w-3xl">Reporte estratégico basado en <strong>202 noticias</strong> de <strong>15 países</strong> analizadas en marzo 2026.</p>
         </div>
 
         <div id="view-dashboard" class="space-y-8 animate-fade-in block">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 card-hover transition-all">
-                    <h3 class="text-sm font-medium text-slate-500 mb-2">Sentimiento Sectorial</h3>
-                    <div class="flex items-baseline gap-2">
-                        <span class="text-3xl font-bold text-red-700">Tensión</span>
-                    </div>
-                    <p class="text-xs text-slate-500 mt-3">Presión por geopolítica y demanda creciente.</p>
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <h3 class="text-xs font-semibold text-slate-500 uppercase">Sentimiento</h3>
+                    <p class="text-2xl font-bold text-red-700">Tensión Operativa</p>
+                    <p class="text-[10px] text-slate-500 mt-2">Crisis en Camisea (Perú) y apagones en Paraguay marcan el mes.</p>
                 </div>
-                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 card-hover transition-all">
-                    <h3 class="text-sm font-medium text-slate-500 mb-2">Convergencia</h3>
-                    <div class="flex items-baseline gap-2">
-                        <span class="text-2xl font-bold text-blue-700">BESS</span>
-                    </div>
-                    <p class="text-xs text-slate-500 mt-3">Despegue de sistemas de almacenamiento en Chile y Argentina.</p>
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <h3 class="text-xs font-semibold text-slate-500 uppercase">Tecnología Clave</h3>
+                    <p class="text-2xl font-bold text-blue-700">BESS</p>
+                    <p class="text-[10px] text-slate-500 mt-2">20 menciones genuinas. Chile y Argentina lideran la inversión.</p>
                 </div>
-                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 card-hover transition-all">
-                    <h3 class="text-sm font-medium text-slate-500 mb-2">Driver</h3>
-                    <div class="flex items-baseline gap-2">
-                        <span class="text-2xl font-bold text-orange-700">Inversión</span>
-                    </div>
-                    <p class="text-xs text-slate-500 mt-3">46 menciones clave sobre financiamiento regional.</p>
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <h3 class="text-xs font-semibold text-slate-500 uppercase">Actor Principal</h3>
+                    <p class="text-2xl font-bold text-slate-800">Utility Estatal</p>
+                    <p class="text-[10px] text-slate-500 mt-2">85 menciones (66,9% de la agenda sectorial).</p>
                 </div>
-                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 card-hover transition-all">
-                    <h3 class="text-sm font-medium text-slate-500 mb-2">Actor Principal</h3>
-                    <div class="flex items-baseline gap-2">
-                        <span class="text-2xl font-bold text-slate-800">Estatal</span>
-                    </div>
-                    <p class="text-xs text-slate-500 mt-3">Las utilities estatales dominan el 66,9% de la agenda.</p>
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <h3 class="text-xs font-semibold text-slate-500 uppercase">Mercado Libre</h3>
+                    <p class="text-2xl font-bold text-emerald-700">42% (Brasil)</p>
+                    <p class="text-[10px] text-slate-500 mt-2">El ACL brasileño moviliza R$ 283 mil millones.</p>
                 </div>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-                    <h3 class="text-lg font-bold text-slate-800 mb-4">Ranking de Tecnologías</h3>
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <h3 class="font-bold text-slate-800 mb-4">Menciones por Tecnología</h3>
                     <div class="chart-container"><canvas id="techChart"></canvas></div>
                 </div>
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-                    <h3 class="text-lg font-bold text-slate-800 mb-4">Modelos de Negocio</h3>
-                    <div class="chart-container"><canvas id="businessChart"></canvas></div>
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <h3 class="font-bold text-slate-800 mb-4">Share of Voice por País</h3>
+                    <div class="chart-container"><canvas id="countryChart"></canvas></div>
                 </div>
             </div>
-            
-            <section class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-                <h3 class="text-lg font-bold text-slate-800 mb-4">Cuadro Estadístico — Tecnologías</h3>
+
+            <section class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                <div class="bg-blue-700 p-4"><h3 class="font-bold text-white">Cuadro Estadístico — Marzo 2026</h3></div>
                 <div class="overflow-x-auto">
-                    <table class="w-full text-sm">
-                        <thead>
-                            <tr class="bg-blue-700 text-white">
-                                <th class="px-4 py-2 text-left">Tecnología</th>
-                                <th class="px-4 py-2 text-center">Menciones</th>
-                                <th class="px-4 py-2 text-center">Tendencia</th>
+                    <table class="w-full text-sm text-left">
+                        <thead class="bg-slate-50 border-b">
+                            <tr>
+                                <th class="px-4 py-3">Tecnología</th>
+                                <th class="px-4 py-3 text-center">Menciones</th>
+                                <th class="px-4 py-3 text-center">Índice 0-10</th>
+                                <th class="px-4 py-3">Tendencia</th>
                             </tr>
                         </thead>
-                        <tbody id="tech-table-body"></tbody>
+                        <tbody id="tech-table"></tbody>
                     </table>
                 </div>
             </section>
         </div>
 
         <div id="view-regional" class="hidden space-y-8 animate-fade-in">
-            <h2 class="text-2xl font-bold text-slate-900">Pulso Regional</h2>
+            <h2 class="text-2xl font-bold text-slate-900 border-b pb-2">Pulso Regional de Noticias</h2>
             <div id="country-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
         </div>
 
-        <div id="view-strategy" class="hidden space-y-12 animate-fade-in">
-            <div class="bg-slate-800 text-white rounded-xl p-8">
-                <h2 class="text-2xl font-bold mb-6 border-b border-slate-600 pb-2">Análisis Estratégico</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div id="view-strategy" class="hidden space-y-10 animate-fade-in">
+            <section class="bg-slate-800 text-white rounded-2xl p-8 shadow-xl">
+                <h2 class="text-2xl font-bold mb-6 text-blue-400">Análisis Estratégico de Tendencias</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
                     <div>
-                        <h4 class="text-blue-400 font-bold mb-2">01. Almacenamiento</h4>
-                        <p class="text-slate-300 text-sm">Chile opera BESS Tocopilla como paradigma de reconversión.</p>
+                        <p class="font-bold text-lg mb-2">01. BESS: Eje del Sistema</p>
+                        <p class="text-sm text-slate-300">Chile opera BESS Tocopilla (116 MW/660 MWh). Argentina lanza AlmaSADI (700 MW). El ciclo de inversión se acorta.</p>
                     </div>
                     <div>
-                        <h4 class="text-blue-400 font-bold mb-2">02. Geopolítica</h4>
-                        <p class="text-slate-300 text-sm">Crisis en Oriente Medio acelera planes de seguridad energética.</p>
+                        <p class="font-bold text-lg mb-2">02. Tensión en Oriente Medio</p>
+                        <p class="text-sm text-slate-300">Colombia y Rep. Dominicana en alerta por precios de diésel. La crisis actúa como acelerador de la transición.</p>
+                    </div>
+                    <div>
+                        <p class="font-bold text-lg mb-2">03. Demanda Eléctrica</p>
+                        <p class="text-sm text-slate-300">Paraguay (+13%) y Brasil (+4,1%) muestran crecimientos que presionan los planes de expansión.</p>
+                    </div>
+                    <div>
+                        <p class="font-bold text-lg mb-2">04. Reformas Regulatorias</p>
+                        <p class="text-sm text-slate-300">Brasil (WACC), Bolivia (Leyes estructurales) y Argentina (AlmaSADI) lideran la agenda normativa.</p>
                     </div>
                 </div>
-            </div>
+            </section>
             <div id="tech-mentions-container" class="space-y-6"></div>
         </div>
     </main>
 
-    <footer class="bg-slate-900 text-slate-400 py-10 mt-12 text-center">
-        <p class="font-bold text-slate-200 uppercase tracking-widest">CIER Internacional</p>
-        <p class="text-xs mt-4">© 2026. Uso interno confidencial basado en Flash CIER.</p>
+    <footer class="bg-slate-900 text-slate-400 py-12 text-center text-xs">
+        <p class="font-bold text-slate-200 text-sm mb-2">Comisión de Integración Energética Regional (CIER)</p>
+        <p>© 2026. Reporte elaborado por la Coordinación Internacional. Confidencial.</p>
     </footer>
 
     <script>
-        // Datos de ejemplo para los gráficos
-        const techData = { labels: ['Hidro','Solar','Transmisión','Distribución','BESS','Eólica'], data: [32, 28, 24, 24, 20, 18] };
-        const businessData = { labels: ['Estatal','Renovable IPP','Transmisión','Otros'], data: [85, 7, 6, 10] };
+        // DATOS MARZO 2026
+        const techStats = [
+            {n:'Hidroeléctrica', m:32, i:10.0, t:'↔ Estable'},
+            {n:'Solar / PV', m:28, i:8.8, t:'↑ Acelerada'},
+            {n:'Transmisión', m:24, i:7.5, t:'↑ Creciente'},
+            {n:'Almacenamiento BESS', m:20, i:6.3, t:'↑↑ Despegue'},
+            {n:'Eólica', m:18, i:5.6, t:'↑ Sólido'},
+            {n:'Gas Natural', m:16, i:5.0, t:'↔ Backbone'}
+        ];
 
-        // Navegación
-        function switchTab(tabId) {
-            ['dashboard', 'regional', 'strategy'].forEach(id => {
-                document.getElementById(`view-${id}`).classList.add('hidden');
-                document.getElementById(`nav-${id}`).classList.remove('active-tab');
-                document.getElementById(`nav-${id}`).classList.add('text-gray-500');
+        const countries = [
+            {c:'Brasil', f:'🇧🇷', m:88, s:'LRCAP contrata 19 GW por R$ 64,5 mil M. Mercado libre es el 42% del consumo.'},
+            {c:'Chile', f:'🇨🇱', m:31, s:'71% generación renovable. BESS Tocopilla en operación comercial.'},
+            {c:'Paraguay', f:'🇵🇾', m:18, s:'Demanda +13%. Negociación Anexo C Itaipú en etapa crítica.'},
+            {c:'Perú', f:'🇵🇪', m:10, s:'Crisis Camisea disparó precios spot a USD 200/MWh.'},
+            {c:'Argentina', f:'🇦🇷', m:8, s:'Lanzamiento AlmaSADI (700 MW BESS) y licitaciones de transmisión.'},
+            {c:'Colombia', f:'🇨🇴', m:8, s:'Ituango al 98% de llenado. Reglamentación de Colombia Solar.'},
+            {c:'Ecuador', f:'🇪🇨', m:8, s:'Luz verde a 200 MW solar. Hoja de ruta para 2.000 MW eólicos.'},
+            {c:'Bolivia', f:'🇧🇴', m:6, s:'Reforma de 4 leyes energéticas. Interconexión con Brasil.'},
+            {c:'Uruguay', f:'🇺🇾', m:3, s:'Emisión de bonos UTE para solar. Foco en H2 Verde.'}
+        ];
+
+        const techMentions = [
+            {n:'Almacenamiento BESS', c:'#ea580c', items:[
+                'CHILE: BESS Tocopilla (116 MW) - Primera reconversión post-carbón.',
+                'ARGENTINA: AlmaSADI - 700 MW stand-alone con contrato CAMMESA.',
+                'BRASIL: CNPE confirma cronograma para primer leilão de baterías.'
+            ]},
+            {n:'Hidroeléctrica', c:'#1d4ed8', items:[
+                'COLOMBIA: Ituango completa 29 días de vertimientos.',
+                'PARAGUAY: Itaipú suministró 5.095 GWh en primer bimestre.',
+                'ECUADOR: Mantenimiento mayor en Central Paute Molino (150 MW).'
+            ]}
+        ];
+
+        // FUNCIONES
+        function switchTab(id) {
+            ['dashboard', 'regional', 'strategy'].forEach(t => {
+                document.getElementById('view-'+t).classList.add('hidden');
+                document.getElementById('nav-'+t).classList.remove('active-tab');
+                document.getElementById('nav-'+t).classList.add('text-gray-500');
             });
-            document.getElementById(`view-${tabId}`).classList.remove('hidden');
-            document.getElementById(`nav-${tabId}`).classList.add('active-tab');
-            document.getElementById(`nav-${tabId}`).classList.remove('text-gray-500');
+            document.getElementById('view-'+id).classList.remove('hidden');
+            document.getElementById('nav-'+id).classList.add('active-tab');
             window.scrollTo(0,0);
         }
 
-        // Inicialización de Gráficos
-        function initCharts() {
+        function init() {
+            // Tabla
+            document.getElementById('tech-table').innerHTML = techStats.map(s => `
+                <tr class="border-b hover:bg-slate-50">
+                    <td class="px-4 py-3 font-medium">${s.n}</td>
+                    <td class="px-4 py-3 text-center">${s.m}</td>
+                    <td class="px-4 py-3 text-center">${s.i}</td>
+                    <td class="px-4 py-3 text-blue-600 font-bold">${s.t}</td>
+                </tr>
+            `).join('');
+
+            // Grids
+            document.getElementById('country-grid').innerHTML = countries.map(c => `
+                <div class="bg-white p-5 rounded-xl border border-slate-200 card-hover transition-all">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-2xl">${c.f}</span>
+                        <h4 class="font-bold text-slate-800">${c.c}</h4>
+                    </div>
+                    <p class="text-xs text-slate-600 leading-relaxed">${c.s}</p>
+                    <div class="mt-4 pt-3 border-t text-[10px] font-bold text-blue-700 uppercase">${c.m} NOTICIAS ANALIZADAS</div>
+                </div>
+            `).join('');
+
+            // Menciones Estrategia
+            document.getElementById('tech-mentions-container').innerHTML = techMentions.map(t => `
+                <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
+                    <div class="p-3 text-white font-bold text-sm" style="background:${t.c}">${t.n}</div>
+                    <div class="p-4 space-y-2">
+                        ${t.items.map(i => `<div class="text-xs text-slate-700 border-l-2 border-slate-200 pl-3 py-1">${i}</div>`).join('')}
+                    </div>
+                </div>
+            `).join('');
+
+            // Gráficos
             new Chart(document.getElementById('techChart'), {
                 type: 'bar',
-                data: {
-                    labels: techData.labels,
-                    datasets: [{ data: techData.data, backgroundColor: '#1d4ed8', borderRadius: 4 }]
-                },
+                data: { labels: techStats.map(s=>s.n), datasets: [{ data: techStats.map(s=>s.m), backgroundColor: '#1d4ed8', borderRadius: 5 }] },
                 options: { indexAxis: 'y', plugins: { legend: { display: false } }, maintainAspectRatio: false }
             });
-
-            new Chart(document.getElementById('businessChart'), {
-                type: 'doughnut',
-                data: {
-                    labels: businessData.labels,
-                    datasets: [{ data: businessData.data, backgroundColor: ['#1e40af','#2563eb','#3b82f6','#94a3b8'] }]
-                },
-                options: { plugins: { legend: { position: 'bottom' } }, maintainAspectRatio: false }
+            new Chart(document.getElementById('countryChart'), {
+                type: 'bar',
+                data: { labels: countries.map(c=>c.c), datasets: [{ data: countries.map(c=>c.m), backgroundColor: '#ea580c', borderRadius: 5 }] },
+                options: { plugins: { legend: { display: false } }, maintainAspectRatio: false }
             });
         }
 
-        // Renderizado de tabla simple
-        function renderTable() {
-            const items = [
-                ['Hidroeléctrica', '32', '↔ Estable'],
-                ['Solar', '28', '↑ Acelerada'],
-                ['BESS', '20', '↑↑ Despegue']
-            ];
-            document.getElementById('tech-table-body').innerHTML = items.map(row => 
-                `<tr class="border-b border-slate-100 hover:bg-slate-50">
-                    <td class="px-4 py-3 font-medium">${row[0]}</td>
-                    <td class="px-4 py-3 text-center">${row[1]}</td>
-                    <td class="px-4 py-3 text-center text-blue-600">${row[2]}</td>
-                </tr>`
-            ).join('');
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            initCharts();
-            renderTable();
-        });
+        document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
 </html>
